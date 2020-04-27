@@ -18,10 +18,10 @@ public class Country {
 		this.totalDeaths = totalDeaths;
 		this.newRecovered = newRecovered;
 		this.totalRecovered = totalRecovered;
-		this.country = country;
+		this.country = country;     
 		this.date = date;
 		this.countryCode = countryCode;
-		
+//		asdasd
 	}
 	
 	public Country() {}
