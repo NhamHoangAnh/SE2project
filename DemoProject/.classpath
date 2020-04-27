@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_251">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_181">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
@@ -13,12 +13,12 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/json-20190722.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/jsoup-1.13.1.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/jsp-api-2.2.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/mysql-connector-java-8.0.19.jar"/>
-	<classpathentry kind="lib" path="E:/java lib/Project lib/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/json-20190722.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/jsp-api-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/University/Nam 3/SE2/source/lib for project/servlet-api-2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
