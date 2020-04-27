@@ -3,23 +3,49 @@ package data;
 
 import java.util.List;
 
-//import javax.ws.rs.client.ClientBuilder;
 //import javax.ws.rs.client.WebTarget;
 //import javax.ws.rs.core.MediaType;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
+
 import java.sql.SQLException;
-import java.net.*;
+import java.net.URL;
+import java.net.HttpURLConnection;
 
 public class Fetch  {
-//	private static WebTarget resource = ClientBuilder.newBuilder()
-//            .build().target("https://api.randomuser.me/");
+
+
+	/**
+	 *  Fetch Summary
+	 */
 	
+//	public static  JSONObject fetchSummary() throws IOException, SQLException, JSONException {
+//		URL url = new URL("https://api.covid19api.com/summary");
+//		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//		connection.setRequestMethod("GET");
+//		connection.setRequestProperty("Accept", "application/json");
+//		if (connection.getResponseCode() != 200) {
+//		    throw new RuntimeException("Failed : HTTP error code : "
+//		            + connection.getResponseCode());
+//		}
+//		InputStream in = new BufferedInputStream(
+//			    (connection.getInputStream()));
+//		
+//		String output = convertToString(in);
+//		JSONObject all = new JSONObject(output);
+//		return all;
+//	}
 	
-	public static  JSONObject retrieveWorldStatistic() throws IOException, SQLException, JSONException {
+	public static  JSONObject fetchWorldStatistics() throws IOException, SQLException, JSONException {
 		URL url = new URL("https://api.covid19api.com/summary");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
@@ -33,8 +59,26 @@ public class Fetch  {
 		
 		String output = convertToString(in);
 		JSONObject all = new JSONObject(output);
+		JSONObject world = (JSONObject) all.get("Global");
+		return world;
+	}
+	
+	public static  JSONArray fetchCountries() throws IOException, SQLException, JSONException {
+		URL url = new URL("https://api.covid19api.com/summary");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+//		connection.setRequestProperty("Accept", "application/json");
+		if (connection.getResponseCode() != 200) {
+		    throw new RuntimeException("Failed : HTTP error code : "
+		            + connection.getResponseCode());
+		}
+		InputStream in = new BufferedInputStream(
+			    (connection.getInputStream()));
 		
-		return all;
+		String output = convertToString(in);
+		JSONObject all = new JSONObject(output);
+		JSONArray countriesAry = all.getJSONArray("Countries");
+		return countriesAry;
 	}
 	
 	private static String convertToString(InputStream in) {
