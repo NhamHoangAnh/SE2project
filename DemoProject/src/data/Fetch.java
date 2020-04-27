@@ -3,9 +3,6 @@ package data;
 
 import java.util.List;
 
-//import javax.ws.rs.client.WebTarget;
-//import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
