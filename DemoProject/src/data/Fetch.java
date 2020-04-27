@@ -45,6 +45,11 @@ public class Fetch  {
 //		return all;
 //	}
 	
+	/**
+	 *  Fetch World Statistics
+	 *  a JSON (Object) about world statistics
+	 */
+	
 	public static  JSONObject fetchWorldStatistics() throws IOException, SQLException, JSONException {
 		URL url = new URL("https://api.covid19api.com/summary");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -62,6 +67,11 @@ public class Fetch  {
 		JSONObject world = (JSONObject) all.get("Global");
 		return world;
 	}
+	
+	/**
+	 *  Fetch all Countries Statistics (up to date)
+	 *  an JSON Array about all Countries statistics
+	 */
 	
 	public static  JSONArray fetchCountries() throws IOException, SQLException, JSONException {
 		URL url = new URL("https://api.covid19api.com/summary");
