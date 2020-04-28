@@ -6,7 +6,7 @@ public class World {
 	private Double totalDeaths;
 	private Double newDeaths;
 	private Double totalRecovered;
-	private Double newRecoverd;
+	private Double newRecovered;
 	private String date;
 	
 	public World(Double totalConfirmed, Double newConfirmed, Double totalDeaths, Double newDeaths, Double totalRecovered, Double newRecoverd, String date) {
@@ -16,7 +16,7 @@ public class World {
 		this.totalDeaths = totalDeaths;
 		this.newDeaths = newDeaths;
 		this.totalRecovered = totalRecovered;
-		this.newRecoverd = newRecoverd;
+		this.newRecovered = newRecoverd;
 		this.date = date;
 	}
 	
@@ -64,12 +64,12 @@ public class World {
 		this.totalRecovered = totalRecovered;
 	}
 
-	public Double getNewRecoverd() {
-		return newRecoverd;
+	public Double getNewRecovered() {
+		return newRecovered;
 	}
 
-	public void setNewRecoverd(Double newRecoverd) {
-		this.newRecoverd = newRecoverd;
+	public void setNewRecovered(Double newRecovered) {
+		this.newRecovered = newRecovered;
 	}
 
 	public String getDate() {
