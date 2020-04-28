@@ -66,6 +66,29 @@ public class Fetch  {
 	}
 	
 	/**
+	 *  Fetch Date
+	 *  a JSON (Object) about the current date
+	 */
+	
+	public static  String fetchDate() throws IOException, SQLException, JSONException {
+		URL url = new URL("https://api.covid19api.com/summary");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+//		connection.setRequestProperty("Accept", "application/json");
+		if (connection.getResponseCode() != 200) {
+		    throw new RuntimeException("Failed : HTTP error code : "
+		            + connection.getResponseCode());
+		}
+		InputStream in = new BufferedInputStream(
+			    (connection.getInputStream()));
+		
+		String output = convertToString(in);
+		JSONObject all = new JSONObject(output);
+		String date = all.getString("Date");
+		return date;
+	}
+	
+	/**
 	 *  Fetch all Countries Statistics (up to date)
 	 *  an JSON Array about all Countries statistics
 	 */
@@ -110,5 +133,6 @@ public class Fetch  {
 	        
 	      return sb.toString();
 	  }
+	
 	
 }
