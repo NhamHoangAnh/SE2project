@@ -2,29 +2,56 @@ package model;
 
 public class Country {
 	
+	private int cId;
+	private String country;
+	private Double newConfirmed;
 	private Double totalConfirmed;
 	private Double newDeaths;
 	private Double totalDeaths;
 	private Double newRecovered;
 	private Double totalRecovered;
-	private String country;
 	private String date;
 	private String countryCode;
 	
-	public Country(Double totalConfirmed, Double newDeaths, Double totalDeaths, Double newRecovered, Double totalRecovered, String country, String date, String countryCode) {
+	public Country(int cId, String country, Double newConfirmed, Double totalConfirmed, Double newDeaths, Double totalDeaths, Double newRecovered, Double totalRecovered, String date, String countryCode) {
 		super();
+		this.country = country; 
+		this.newConfirmed = newConfirmed;
 		this.totalConfirmed = totalConfirmed;
 		this.newDeaths = newDeaths;
 		this.totalDeaths = totalDeaths;
 		this.newRecovered = newRecovered;
 		this.totalRecovered = totalRecovered;
-		this.country = country;     
 		this.date = date;
 		this.countryCode = countryCode;
-//		asdasd
+
 	}
 	
-	public Country() {}
+	public Country() {
+//		super();
+//		this.country = country; 
+//		this.newConfirmed = newConfirmed;
+//		this.totalConfirmed = totalConfirmed;
+//		this.newDeaths = newDeaths;
+//		this.totalDeaths = totalDeaths;
+//		this.newRecovered = newRecovered;
+//		this.totalRecovered = totalRecovered;
+//		this.date = date;
+//		this.countryCode = countryCode;
+
+	}
+
+	public int getcId() {
+		return cId;
+	}
+
+	public Double getNewConfirmed() {
+		return newConfirmed;
+	}
+
+	public void setNewConfirmed(Double newConfirmed) {
+		this.newConfirmed = newConfirmed;
+	}
 
 	public Double getTotalConfirmed() {
 		return totalConfirmed;

@@ -7,7 +7,7 @@ public class DBConnect {
 	private static String DB_URL = "jdbc:mysql://localhost:3306/se2project?useSSL=false";
 	private static String USER_NAME = "root";
 	// Attention, different pass from different computer :v
-	private static String PASSWORD = "tuanh223";
+	private static String PASSWORD = "root";
 	
 	public static Connection getConnection() {
 		Connection conn = null;
