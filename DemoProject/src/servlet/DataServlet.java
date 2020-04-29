@@ -24,22 +24,11 @@ public class DataServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		res.setContentType(" application/json");
 		JSONObject data = null;
-		try {
-			data = Fetch.retrieveWorldStatistic();
-			;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		PrintWriter pw = res.getWriter();
-		pw.print(data);
+		pw.print("Something");
 		pw.close();
 		
 	}
+	
 }
