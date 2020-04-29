@@ -20,7 +20,7 @@ public class WorldDAO {
 		conn = DBConnect.getConnection();
 	}
 	
-	public void updateWorldStatistics() throws JSONException, IOException, SQLException {
+	public void updateWorldStatistics() throws JSONException, IOException, SQLException  {
 		JSONObject world = Fetch.fetchWorldStatistics();
 		String globalDate = Fetch.fetchDate();
 		
