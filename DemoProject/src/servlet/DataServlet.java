@@ -25,10 +25,7 @@ public class DataServlet extends HttpServlet {
 		res.setContentType(" application/json");
 		JSONObject data = null;
 		
-		PrintWriter pw = res.getWriter();
-		pw.print("Something");
-		pw.close();
+//		
 		
 	}
-	
 }
