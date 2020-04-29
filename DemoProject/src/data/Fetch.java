@@ -51,7 +51,7 @@ public class Fetch  {
 		URL url = new URL("https://api.covid19api.com/summary");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
-//		connection.setRequestProperty("Accept", "application/json");
+		connection.setRequestProperty("Accept", "application/json");
 		if (connection.getResponseCode() != 200) {
 		    throw new RuntimeException("Failed : HTTP error code : "
 		            + connection.getResponseCode());
