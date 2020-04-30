@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -13,6 +16,7 @@ import org.json.JSONObject;
 import connect.DBConnect;
 import data.Fetch;
 import model.World;
+
 
 public class WorldDAO {
 	private Connection conn;
@@ -27,27 +31,22 @@ public class WorldDAO {
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
 		ResultSet r = pstmt.executeQuery();
 		r.next();
-		String dateBefore = r.getString("date");
-		int wId = r.getInt("wId");
-		
-		if (!dateBefore.equals(globalDate)) {
-			wId = wId + 1;
-			String updateWorld = " UPDATE World SET " + 
-					"newConfirmed = ?" +
-					", totalConfirmed = ?" +
-					", newDeaths = ?" +
-					", totalDeaths = ?" +
-					", newRecovered = ?" +
-					", totalRecovered =?" +
-					", date = ?" +
-					"WHERE wId = ?;";	
+		String dateBefore = dateFormat(r.getString("date"));
+		String currentDate = dateFormat(globalDate);
+				 
+		if (!dateBefore.equals(currentDate)) {
+			String updateWorld = " INSERT INTO World("
+					+ "newConfirmed,totalConfirmed,"
+					+ "newDeaths,totalDeaths,"
+					+ "newRecovered,totalRecovered,"
+					+ "date) "
+					+ "VALUES(?,?,?,?,?,?,?);";
 			double newConfirmed = world.getDouble("NewConfirmed");
 			double totalConfirmed = world.getDouble("TotalConfirmed");
 			double newDeaths = world.getDouble("NewDeaths");
 			double totalDeaths = world.getDouble("TotalDeaths");
 			double newRecovered = world.getDouble("NewRecovered");
 			double totalRecovered = world.getDouble("TotalRecovered");
-			String date = globalDate;
 			PreparedStatement preparedStatement = conn.prepareStatement(updateWorld);
 			preparedStatement.setDouble(1, newConfirmed);
 			preparedStatement.setDouble(2, totalConfirmed);
@@ -55,8 +54,7 @@ public class WorldDAO {
 			preparedStatement.setDouble(4, totalDeaths);
 			preparedStatement.setDouble(5, newRecovered);
 			preparedStatement.setDouble(6, totalRecovered);
-			preparedStatement.setString(7, date);
-			preparedStatement.setInt(8, wId);
+			preparedStatement.setString(7, globalDate);
 			preparedStatement.executeUpdate();
 		}
 	}
@@ -65,7 +63,7 @@ public class WorldDAO {
 		
 		String globalDate = Fetch.fetchDate();
 		World w = new World();
-		String selectWorld = "SELECT * FROM World WHERE date = '" + globalDate + "';";
+		String selectWorld = "SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectWorld);
 		ResultSet rs = preparedStatement.executeQuery();
 		while(rs.next()) {
@@ -86,16 +84,30 @@ public class WorldDAO {
 		return w;	
 	}
 	
+	public static String dateFormat(String d) {
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy", Locale.ENGLISH);
+		LocalDate date = LocalDate.parse(d, inputFormatter);
+		String formattedDate = outputFormatter.format(date);
+		return formattedDate;
+	}
+	
 	public static void main(String args[]) throws SQLException, IOException {
 		try {
+			
 			String globalDate = Fetch.fetchDate();
-			System.out.println(globalDate);
-//			Connection connect = DBConnect.getConnection();
-//			PreparedStatement ps = connect.prepareStatement("SELECT * FROM World ORDER BY wId DESC LIMIT 1");
-//			ResultSet r = ps.executeQuery();
-//			while (r.next()) {
-//				System.out.println(r.getString("newConfirmed"));
-//			}
+			
+			//String globalDate = Fetch.fetchDate();
+			Connection connect = DBConnect.getConnection();
+			PreparedStatement ps = connect.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
+			//ps.setString(1, "2020-04-29T15:28:20Z");
+			
+			ResultSet r = ps.executeQuery();
+			r.next();
+			String dateBefore = dateFormat(r.getString("date"));
+			String currentDate = dateFormat(globalDate);
+			System.out.println(dateBefore);
+			System.out.println(currentDate);
 			
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block
