@@ -24,4 +24,5 @@ public class UpdateWorld extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+	
 }
