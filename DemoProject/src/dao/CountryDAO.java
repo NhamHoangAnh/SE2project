@@ -24,7 +24,7 @@ public class CountryDAO {
 		JSONArray countries = Fetch.fetchCountries();
 //		String globalDate = Fetch.fetchDate();
 		
-		String updateCountries = "UPDATE Countries SET " + 
+		String updateCountries = " UPDATE Countries SET " + 
 				"country = ?" +
 				", newConfirmed = ?" +
 				", totalConfirmed = ?" +
@@ -35,8 +35,8 @@ public class CountryDAO {
 				", date = ?" +
 				", countryCode = ?" +
 				"WHERE cId = ?;";
-		
-		for( int i = 0; i < countries.length(); i++) {
+		int i = 0;
+		while(i < countries.length()) {
 			JSONObject o = countries.getJSONObject(i);
 			String country = o.getString("Country");
 			double newConfirmed = o.getDouble("NewConfirmed");
@@ -60,13 +60,13 @@ public class CountryDAO {
 			preparedStatement.setString(9, countryCode);
 			preparedStatement.setInt(10, i+1);
 			preparedStatement.executeUpdate();
-			
+			i++;
 		}
 	}
 	
 	public ArrayList<Country> selectAllCountries() throws IOException, SQLException, JSONException{
 		ArrayList<Country> countriesList = new ArrayList<Country>();
-		String selectCoutries = "SELECT * FROM Country";
+		String selectCoutries = "SELECT * FROM Countries";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectCoutries);
 		ResultSet rs = preparedStatement.executeQuery();
 		while(rs.next()) {
@@ -83,12 +83,13 @@ public class CountryDAO {
 			
 			countriesList.add(new Country(cId, country, newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, date,countryCode));
 		}
+		
 		return countriesList;
 	}
 	
 	public Country selectCountry(String countryName) throws IOException, SQLException, JSONException{
 		Country c = new Country();
-		String selectCountry = "SELECT * FROM Countries WHERE country = "+ countryName + "  ";
+		String selectCountry = "SELECT * FROM countries where country = " + "\"" + countryName + "\"";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectCountry);
 		ResultSet rs = preparedStatement.executeQuery();
 		while(rs.next()) {
@@ -118,7 +119,7 @@ public class CountryDAO {
 	
 	public Country selectVietNam() throws IOException, SQLException, JSONException{
 		Country vn = new Country();
-		String selectVietNam = "SELECT * FROM Countries WHERE country = "+ "VietNam" + "  ";
+		String selectVietNam = "SELECT * FROM countries where country = " + "\"" + "VietNam" + "\"";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectVietNam);
 		ResultSet rs = preparedStatement.executeQuery();
 		while(rs.next()) {
@@ -145,12 +146,59 @@ public class CountryDAO {
 		return vn;
 	}
 	
-	public static void main(String arg[]) throws IOException, SQLException, JSONException {
-		CountryDAO c = new CountryDAO();
-		c.updateCountries();
+	public void insertCountries() throws IOException, SQLException  {
 		JSONArray countries = Fetch.fetchCountries();
+//		String globalDate = Fetch.fetchDate();
 		
-//		JSONObject o = countries.getJSONObject(2);
-//		System.out.println(o);
+		String updateCountries = " INSERT INTO Countries(country, newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, date, countryCode) VALUES " + 
+				"(country = ?" +
+				", newConfirmed = ?" +
+				", totalConfirmed = ?" +
+				", newDeaths = ?" +
+				", totalDeaths = ?" +
+				", newRecovered = ?" +
+				", totalRecovered =?" +
+				", date = ?" +
+				", countryCode = ?);"
+				;
+		int i = 0;
+		while(i < countries.length()) {
+			JSONObject o = countries.getJSONObject(i);
+			String country = o.getString("Country");
+			double newConfirmed = o.getDouble("NewConfirmed");
+			double totalConfirmed = o.getDouble("TotalConfirmed");
+			double newDeaths = o.getDouble("NewDeaths");
+			double totalDeaths = o.getDouble("TotalDeaths");
+			double newRecovered = o.getDouble("NewRecovered");
+			double totalRecovered = o.getDouble("TotalRecovered");
+			String date = o.getString("Date"); 
+			String countryCode = o.getString("CountryCode");
+			
+			PreparedStatement preparedStatement = conn.prepareStatement(updateCountries);
+			preparedStatement.setString(1, country);
+			preparedStatement.setDouble(2, newConfirmed);
+			preparedStatement.setDouble(3, totalConfirmed);
+			preparedStatement.setDouble(4, newDeaths);
+			preparedStatement.setDouble(5, totalDeaths);
+			preparedStatement.setDouble(6, newRecovered);
+			preparedStatement.setDouble(7, totalRecovered);
+			preparedStatement.setString(8, date);
+			preparedStatement.setString(9, countryCode);
+//			preparedStatement.setInt(10, i+1);
+			preparedStatement.executeUpdate();
+			i++;
+		}
 	}
+	
+//	public static void main(String arg[]) throws IOException, SQLException, JSONException {
+//		CountryDAO c = new CountryDAO();
+//		c.insertCountries();
+		
+//		c.updateCountries();
+//		JSONArray countries = Fetch.fetchCountries();
+//		JSONObject o = countries.getJSONObject(2);
+//		Iterator i = c.selectAllCountries().iterator();
+//		String cs = "AX";
+//		System.out.println(c.selectCountry(cs).getCountryCode());
+//	}
 }
