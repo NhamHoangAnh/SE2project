@@ -1,7 +1,8 @@
 package model;
 
 public class Country {
-	
+	private int cId;
+	private Double newConfirmed;
 	private Double totalConfirmed;
 	private Double newDeaths;
 	private Double totalDeaths;
@@ -11,8 +12,10 @@ public class Country {
 	private String date;
 	private String countryCode;
 	
-	public Country(Double totalConfirmed, Double newDeaths, Double totalDeaths, Double newRecovered, Double totalRecovered, String country, String date, String countryCode) {
+	public Country(int cId, String country, Double newConfirmed, Double totalConfirmed, Double newDeaths, Double totalDeaths, Double newRecovered, Double totalRecovered, String date, String countryCode) {
 		super();
+		this.cId = cId;
+		this.newConfirmed = newConfirmed;
 		this.totalConfirmed = totalConfirmed;
 		this.newDeaths = newDeaths;
 		this.totalDeaths = totalDeaths;
@@ -21,10 +24,22 @@ public class Country {
 		this.country = country;     
 		this.date = date;
 		this.countryCode = countryCode;
-//		asdasd
+
 	}
 	
 	public Country() {}
+
+	public int getcId() {
+		return cId;
+	}
+
+	public Double getNewConfirmed() {
+		return newConfirmed;
+	}
+
+	public void setNewConfirmed(Double newConfirmed) {
+		this.newConfirmed = newConfirmed;
+	}
 
 	public Double getTotalConfirmed() {
 		return totalConfirmed;
