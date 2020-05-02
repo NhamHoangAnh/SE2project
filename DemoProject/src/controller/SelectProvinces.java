@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,47 +12,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-
 import com.google.gson.Gson;
-import dao.WorldDAO;
-import model.World;
 
-@WebServlet("/world")
-public class SelectWorld extends HttpServlet {
+import dao.VNProvincesDAO;
+import model.VietNamProvinces;
+
+@WebServlet("/provinces")
+public class SelectProvinces extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
-	private WorldDAO wD = new WorldDAO();
-	private World world = new World();
+	private VNProvincesDAO vnpDAO = new VNProvincesDAO();
+	private ArrayList<VietNamProvinces> allProvinces = new ArrayList<VietNamProvinces>();
 	
-	public SelectWorld() {
+	
+	public SelectProvinces() {
 		super();
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		res.setContentType("text/html");
         res.setCharacterEncoding("UTF-8");
         
         try {
-			world = wD.selectWorldStatistics();
-		} catch (JSONException | SQLException | IOException e) {
+			allProvinces = vnpDAO.selectAllProvinces();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
-        // world as JSON
-        
-//        String worldJSON = this.gson.toJson(world);
+//        String provincesJSON = this.gson.toJson(allProvinces);
 //        PrintWriter pw = res.getWriter();
-//        pw.print(world);
+//        pw.print(provincesJSON);
 //        pw.flush();
+//        
         
-        req.setAttribute("world", world);
+        req.setAttribute("allProvinces", allProvinces);
         
-        RequestDispatcher dispatcher = req.getRequestDispatcher("world.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("provinces.jsp");
         dispatcher.include(req, res);
         
 	}
-	
-	
 }

@@ -3,14 +3,14 @@ package model;
 public class VietNamProvinces {
 
 	private String name;
-	private Double confirmed;
-	private Double deaths;
-	private Double recovered;
-	private Double underTreatment;
+	private double confirmed;
+	private double deaths;
+	private double recovered;
+	private double underTreatment;
 	private String date;
 	
 	
-	public VietNamProvinces( String name, Double confirmed, Double deaths, Double recovered, Double underTreatment, String date) {
+	public VietNamProvinces( String name, double confirmed, double deaths, double recovered, double underTreatment, String date) {
 		super() ;
 		
 		this.name = name;
@@ -24,7 +24,7 @@ public class VietNamProvinces {
 	
 	
 
-	public VietNamProvinces(String name, int confirmed, int deaths, int recovered, String date) {
+	public VietNamProvinces() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,7 +36,7 @@ public class VietNamProvinces {
 		this.name = name;
 	}
 
-	public Double getConfirmed() {
+	public double getConfirmed() {
 		return confirmed;
 	}
 
@@ -44,7 +44,7 @@ public class VietNamProvinces {
 		this.confirmed = confirmed;
 	}
 
-	public Double getDeaths() {
+	public double getDeaths() {
 		return deaths;
 	}
 
@@ -52,7 +52,7 @@ public class VietNamProvinces {
 		this.deaths = deaths;
 	}
 
-	public Double getRecovered() {
+	public double getRecovered() {
 		return recovered;
 	}
 
@@ -60,7 +60,7 @@ public class VietNamProvinces {
 		this.recovered = recovered;
 	}
 
-	public Double getUnderTreatment() {
+	public double getUnderTreatment() {
 		return underTreatment;
 	}
 
@@ -74,6 +74,14 @@ public class VietNamProvinces {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "VietNamProvinces [name=" + name + ", confirmed=" + confirmed + ", deaths=" + deaths + ", recovered="
+				+ recovered + ", underTreatment=" + underTreatment + ", date=" + date + "]";
 	}
 	
 }
