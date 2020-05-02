@@ -11,7 +11,7 @@ public class VietNamProvinces {
 	
 	
 	public VietNamProvinces( String name, Double confirmed, Double deaths, Double recovered, Double underTreatment, String date) {
-		super();
+		super() ;
 		
 		this.name = name;
 		this.confirmed = confirmed;
