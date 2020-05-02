@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import dao.WorldDAO;
 import model.World;
 
-@WebServlet("/index")
+@WebServlet("/world")
 public class SelectWorld extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
@@ -48,7 +48,7 @@ public class SelectWorld extends HttpServlet {
         
         req.setAttribute("world", world);
         
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("world.jsp");
         dispatcher.include(req, res);
         
 	}
