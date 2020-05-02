@@ -1,15 +1,15 @@
 package model;
 
 public class World {
-	private Double totalConfirmed;
-	private Double newConfirmed;
-	private Double totalDeaths;
-	private Double newDeaths;
-	private Double totalRecovered;
-	private Double newRecovered;
+	private double totalConfirmed;
+	private double newConfirmed;
+	private double totalDeaths;
+	private double newDeaths;
+	private double totalRecovered;
+	private double newRecovered;
 	private String date;
 	
-	public World(Double totalConfirmed, Double newConfirmed, Double totalDeaths, Double newDeaths, Double totalRecovered, Double newRecoverd, String date) {
+	public World(double totalConfirmed, double newConfirmed, double totalDeaths, double newDeaths, double totalRecovered, double newRecoverd, String date) {
 		super();
 		this.totalConfirmed = totalConfirmed;
 		this.newConfirmed = newConfirmed;
@@ -24,7 +24,7 @@ public class World {
 		
 	}
 
-	public Double getTotalConfirmed() {
+	public double getTotalConfirmed() {
 		return totalConfirmed;
 	}
 
@@ -32,7 +32,7 @@ public class World {
 		this.totalConfirmed = totalConfirmed;
 	}
 
-	public Double getNewConfirmed() {
+	public double getNewConfirmed() {
 		return newConfirmed;
 	}
 
@@ -40,7 +40,7 @@ public class World {
 		this.newConfirmed = newConfirmed;
 	}
 
-	public Double getTotalDeaths() {
+	public double getTotalDeaths() {
 		return totalDeaths;
 	}
 
@@ -48,7 +48,7 @@ public class World {
 		this.totalDeaths = totalDeaths;
 	}
 
-	public Double getNewDeaths() {
+	public double getNewDeaths() {
 		return newDeaths;
 	}
 
@@ -56,7 +56,7 @@ public class World {
 		this.newDeaths = newDeaths;
 	}
 
-	public Double getTotalRecovered() {
+	public double getTotalRecovered() {
 		return totalRecovered;
 	}
 
@@ -64,7 +64,7 @@ public class World {
 		this.totalRecovered = totalRecovered;
 	}
 
-	public Double getNewRecovered() {
+	public double getNewRecovered() {
 		return newRecovered;
 	}
 

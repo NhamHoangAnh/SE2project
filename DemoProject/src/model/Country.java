@@ -2,17 +2,17 @@ package model;
 
 public class Country {
 	private int cId;
-	private Double newConfirmed;
-	private Double totalConfirmed;
-	private Double newDeaths;
-	private Double totalDeaths;
-	private Double newRecovered;
-	private Double totalRecovered;
+	private double newConfirmed;
+	private double totalConfirmed;
+	private double newDeaths;
+	private double totalDeaths;
+	private double newRecovered;
+	private double totalRecovered;
 	private String country;
 	private String date;
 	private String countryCode;
 	
-	public Country(int cId, String country, Double newConfirmed, Double totalConfirmed, Double newDeaths, Double totalDeaths, Double newRecovered, Double totalRecovered, String date, String countryCode) {
+	public Country(int cId, String country, double newConfirmed, double totalConfirmed, double newDeaths, double totalDeaths, double newRecovered, double totalRecovered, String date, String countryCode) {
 		super();
 		this.cId = cId;
 		this.newConfirmed = newConfirmed;
@@ -33,7 +33,7 @@ public class Country {
 		return cId;
 	}
 
-	public Double getNewConfirmed() {
+	public double getNewConfirmed() {
 		return newConfirmed;
 	}
 
@@ -41,7 +41,7 @@ public class Country {
 		this.newConfirmed = newConfirmed;
 	}
 
-	public Double getTotalConfirmed() {
+	public double getTotalConfirmed() {
 		return totalConfirmed;
 	}
 
@@ -49,7 +49,7 @@ public class Country {
 		this.totalConfirmed = totalConfirmed;
 	}
 
-	public Double getNewDeaths() {
+	public double getNewDeaths() {
 		return newDeaths;
 	}
 
@@ -57,7 +57,7 @@ public class Country {
 		this.newDeaths = newDeaths;
 	}
 
-	public Double getTotalDeaths() {
+	public double getTotalDeaths() {
 		return totalDeaths;
 	}
 
@@ -65,7 +65,7 @@ public class Country {
 		this.totalDeaths = totalDeaths;
 	}
 
-	public Double getNewRecovered() {
+	public double getNewRecovered() {
 		return newRecovered;
 	}
 
@@ -73,7 +73,7 @@ public class Country {
 		this.newRecovered = newRecovered;
 	}
 
-	public Double getTotalRecovered() {
+	public double getTotalRecovered() {
 		return totalRecovered;
 	}
 
