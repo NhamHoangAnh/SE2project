@@ -94,26 +94,36 @@ public class VNProvincesDAO {
 		while(rs.next()) {
 			int pId = rs.getInt("pId");
 			String name = rs.getString("name");
-			int confirmed = rs.getInt("confirmed");
-			int deaths = rs.getInt("deaths");
-			int recovered = rs.getInt("underTreatment");
+			double confirmed = rs.getDouble("confirmed");
+			double deaths = rs.getDouble("deaths");
+			double recovered = rs.getDouble("recovered");
+			double underTreatment = rs.getDouble("underTreatment");
 			String date = rs.getString("date");
-			allProvinces.add(new VietNamProvinces(name, confirmed,deaths,recovered, date));
+			VietNamProvinces vnp = new VietNamProvinces(name, confirmed,deaths,recovered,underTreatment, date);
+			allProvinces.add(vnp);
 		}
 		return allProvinces;
 	}
 	
 	public static void main(String args[]) throws IOException, SQLException {
-		Document doc = SSLHelper.getConnection("https://ncov.moh.gov.vn/").userAgent("HTTPS").get();
-		Element firstTable = doc.select("table.table-striped.table-covid19").get(0);
 		
-		for (Element row: firstTable.select("tr") ) {
-			//System.out.println(DT.ParseDouble((row.select("td:nth-of-type(2)").text())));
-		}
+//		Connection conn = DBConnect.getConnection();
+//		
+//		String selectProvinces = "SELECT * FROM VietnamProvinces";
+//		PreparedStatement pstmt = conn.prepareStatement(selectProvinces);
+//		ResultSet rs = pstmt.executeQuery();
+//		while(rs.next()) {
+//			System.out.println(rs.getString("name"));
+//		}
+		
 		
 		VNProvincesDAO vnpDAO = new VNProvincesDAO();
-		vnpDAO.updateProvinces();
-		System.out.println(vnpDAO.selectAllProvinces());;
+		
+		ArrayList<VietNamProvinces> testAll = new ArrayList<VietNamProvinces>();
+		testAll = vnpDAO.selectAllProvinces();
+		VietNamProvinces test = vnpDAO.selectAllProvinces().get(3);
+	
+		System.out.println(testAll.get(3));
 		
 	}
 	
