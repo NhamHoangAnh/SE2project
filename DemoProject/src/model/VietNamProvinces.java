@@ -1,6 +1,7 @@
 package model;
 
 public class VietNamProvinces {
+
 	private String name;
 	private Double confirmed;
 	private Double deaths;
@@ -8,8 +9,10 @@ public class VietNamProvinces {
 	private Double underTreatment;
 	private String date;
 	
-	public VietNamProvinces(String name, Double confirmed, Double deaths, Double recovered, Double underTreatment, String date) {
+	
+	public VietNamProvinces( String name, Double confirmed, Double deaths, Double recovered, Double underTreatment, String date) {
 		super();
+		
 		this.name = name;
 		this.confirmed = confirmed;
 		this.deaths = deaths;
@@ -19,8 +22,10 @@ public class VietNamProvinces {
 				
 	}
 	
-	public VietNamProvinces() {
-		
+	
+
+	public VietNamProvinces(String name, int confirmed, int deaths, int recovered, String date) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
