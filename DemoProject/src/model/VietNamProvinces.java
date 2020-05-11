@@ -2,6 +2,7 @@ package model;
 
 public class VietNamProvinces {
 
+	private int pId;
 	private String name;
 	private double confirmed;
 	private double deaths;
@@ -10,9 +11,10 @@ public class VietNamProvinces {
 	private String date;
 	
 	
-	public VietNamProvinces( String name, double confirmed, double deaths, double recovered, double underTreatment, String date) {
+	public VietNamProvinces(int pId,String name, double confirmed, double deaths, double recovered, double underTreatment, String date) {
 		super() ;
 		
+		this.pId = pId;
 		this.name = name;
 		this.confirmed = confirmed;
 		this.deaths = deaths;
@@ -75,12 +77,16 @@ public class VietNamProvinces {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+	
+	public int getPId() {
+		return pId;
+	}
+	
 
 
 	@Override
 	public String toString() {
-		return "VietNamProvinces [name=" + name + ", confirmed=" + confirmed + ", deaths=" + deaths + ", recovered="
+		return "VietNamProvinces [pId = " + pId + ",name=" + name + ", confirmed=" + confirmed + ", deaths=" + deaths + ", recovered="
 				+ recovered + ", underTreatment=" + underTreatment + ", date=" + date + "]";
 	}
 	
