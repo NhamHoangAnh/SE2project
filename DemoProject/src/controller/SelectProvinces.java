@@ -27,6 +27,7 @@ public class SelectProvinces extends HttpServlet {
 	
 	public SelectProvinces() {
 		super();
+		
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -35,6 +36,7 @@ public class SelectProvinces extends HttpServlet {
         
         try {
 			allProvinces = vnpDAO.selectAllProvinces();
+			System.out.println(allProvinces.get(3).getPId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,5 +53,21 @@ public class SelectProvinces extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("provinces.jsp");
         dispatcher.include(req, res);
         
+	}
+	
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		res.setContentType("text/html");
+        res.setCharacterEncoding("UTF-8");
+        String getPId = req.getParameter("deleteId");
+        int pId = Integer.parseInt(getPId);
+        
+        try {
+			vnpDAO.deleteProvince(pId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        doGet(req, res);
 	}
 }
