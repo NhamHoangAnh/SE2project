@@ -6,6 +6,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
+<script type="text/javascript">
+function alertName(){
+alert("Nham Gia Hoang Anh: " + ${world.totalConfirmed});
+} 
+</script> 
+
 </head>
 <body>
 	<h1>Hello SE2Project</h1>
@@ -18,5 +25,6 @@
 		<div>Total Recovered: ${world.totalRecovered}</div>
 		<div>New Recovered: ${world.newRecovered}</div>
 	</div>
+	<input type="submit" name="Submit" value="Click Me" onclick="alertName()">
 </body>
 </html>
