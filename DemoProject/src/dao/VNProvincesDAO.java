@@ -86,6 +86,14 @@ public class VNProvincesDAO {
 		}
 	}
 	
+	public void deleteProvince(int id) throws SQLException {
+		PreparedStatement pstmt = conn.prepareStatement("DELETE FROM VietnamProvinces WHERE pId = ?");
+		pstmt.setInt(1, id);
+		pstmt.execute();
+	}
+	
+	
+	
 	public ArrayList<VietNamProvinces> selectAllProvinces() throws SQLException {
 		ArrayList<VietNamProvinces> allProvinces = new ArrayList<VietNamProvinces>();
 		String selectProvinces = "SELECT * FROM VietnamProvinces";
@@ -99,11 +107,12 @@ public class VNProvincesDAO {
 			double recovered = rs.getDouble("recovered");
 			double underTreatment = rs.getDouble("underTreatment");
 			String date = rs.getString("date");
-			VietNamProvinces vnp = new VietNamProvinces(name, confirmed,deaths,recovered,underTreatment, date);
+			VietNamProvinces vnp = new VietNamProvinces(pId, name, confirmed,deaths,recovered,underTreatment, date);
 			allProvinces.add(vnp);
 		}
 		return allProvinces;
 	}
+	
 	
 	public static void main(String args[]) throws IOException, SQLException {
 		
@@ -119,10 +128,10 @@ public class VNProvincesDAO {
 		
 		VNProvincesDAO vnpDAO = new VNProvincesDAO();
 		
+		vnpDAO.updateProvinces();
+		
 		ArrayList<VietNamProvinces> testAll = new ArrayList<VietNamProvinces>();
 		testAll = vnpDAO.selectAllProvinces();
-		VietNamProvinces test = vnpDAO.selectAllProvinces().get(3);
-	
 		System.out.println(testAll.get(3));
 		
 	}
