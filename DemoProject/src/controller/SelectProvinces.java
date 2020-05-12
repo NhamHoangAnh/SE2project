@@ -30,44 +30,60 @@ public class SelectProvinces extends HttpServlet {
 		
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
+			throws IOException, ServletException {
+		
+		doGet(req,res);
+	}
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
+			throws IOException, ServletException {
+		
 		res.setContentType("text/html");
         res.setCharacterEncoding("UTF-8");
+        String action = req.getServletPath();
         
+        String path = req.getRequestURI().substring(req.getContextPath().length());
+        System.out.println(path);
         try {
-			allProvinces = vnpDAO.selectAllProvinces();
-			System.out.println(allProvinces.get(3).getPId());
+        	switch(path) {
+        	case "/delete": 
+        		deleteProvince(req,res);
+        		break;
+        	default:
+        		listProvinces(req,res);
+        		break;
+        	}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
-//        String provincesJSON = this.gson.toJson(allProvinces);
-//        PrintWriter pw = res.getWriter();
-//        pw.print(provincesJSON);
-//        pw.flush();
-//        
-        
-        req.setAttribute("allProvinces", allProvinces);
-        
-        RequestDispatcher dispatcher = req.getRequestDispatcher("provinces.jsp");
-        dispatcher.include(req, res);
+//  
         
 	}
 	
-	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		res.setContentType("text/html");
-        res.setCharacterEncoding("UTF-8");
-        String getPId = req.getParameter("deleteId");
+	public void listProvinces(HttpServletRequest req, HttpServletResponse res) 
+			throws SQLException, ServletException, IOException {
+		
+		allProvinces = vnpDAO.selectAllProvinces();
+		req.setAttribute("allProvinces", allProvinces);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("provinces.jsp");
+		dispatcher.include(req, res);
+		
+		
+	}
+	
+	public void deleteProvince(HttpServletRequest req, HttpServletResponse res) 
+			throws IOException, ServletException, SQLException {
+        
+		System.out.println("Calling delete");
+		String getPId = req.getParameter("id");
         int pId = Integer.parseInt(getPId);
+        vnpDAO.deleteProvince(22);
+        System.out.println("Delete successful at id: 22" );
+        res.sendRedirect("provinces");
         
-        try {
-			vnpDAO.deleteProvince(pId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        doGet(req, res);
 	}
 }
