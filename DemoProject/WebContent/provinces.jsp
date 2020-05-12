@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -19,7 +20,7 @@
 						<th>Under Treatment</th>
 						<th>Date</th>
 						<th>Delete</th>
-						<th>Test</th>
+						<th>Delete Part 2</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,14 +36,8 @@
 							<td><c:out value="${p.underTreatment}" /></td>
 							<td><c:out value="${p.date}" /></td>
 							<td>
-								<form action="delete" method="post">
-									<input type="hidden" name="deleteId" value="" />
-        							<input type="submit" name="delete_province" value="DeleteByPost" />
-    							</form>
-    							<a href="/delete?pId=<c:out value= '' />">DeleteByHref</a>
+								<a href="DemoProject/provinces?id=<c:out value='${p.pId}' />">Delete</a>
 							</td>
-					
-							<td>HoangANh</td>
 							
 					</c:forEach>
 				</tbody>
