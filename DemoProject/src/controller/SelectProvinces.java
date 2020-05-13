@@ -59,6 +59,8 @@ public class SelectProvinces extends HttpServlet {
         		deleteProvince(req,res);
         	} else if(req.getParameter("editId") != null) {
         		System.out.println("Calling edit with id of: " + req.getParameter("editId"));
+        		showEditForm(req, res);
+        		editProvince(req,res);
         	} else {
         		listProvinces(req,res);
         	}
@@ -80,6 +82,31 @@ public class SelectProvinces extends HttpServlet {
 		dispatcher.include(req, res);
 		
 		
+	}
+	
+	public void showEditForm(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException, SQLException {
+		
+		int pId = Integer.parseInt(req.getParameter("editId"));
+		VietNamProvinces p = vnpDAO.getProvince(pId);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("provinceForm.jsp");
+		req.setAttribute("p", p);
+        dispatcher.include(req, res);
+	}
+	
+	public void editProvince(HttpServletRequest req, HttpServletResponse res) 
+			throws SQLException, IOException {
+		int pId = Integer.parseInt(req.getParameter("ePId"));
+		String name = req.getParameter("eName");
+		double confirmed = Double.parseDouble(req.getParameter("eConfirmed"));
+		double deaths = Double.parseDouble(req.getParameter("eDeaths"));
+		double recovered = Double.parseDouble(req.getParameter("eRecovered"));
+		double underTreatment = Double.parseDouble(req.getParameter("eUnderTreatment"));
+		String date = req.getParameter("eDate");
+		VietNamProvinces changedP = new VietNamProvinces(pId, name,confirmed, deaths, recovered, underTreatment, date);
+		vnpDAO.editProvince(changedP);
+		res.sendRedirect("provinces");
+		return;
 	}
 	
 	public void deleteProvince(HttpServletRequest req, HttpServletResponse res) 
