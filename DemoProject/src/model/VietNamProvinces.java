@@ -78,7 +78,7 @@ public class VietNamProvinces {
 		this.date = date;
 	}
 	
-	public int getPId() {
+	public int getpId() {
 		return pId;
 	}
 	
