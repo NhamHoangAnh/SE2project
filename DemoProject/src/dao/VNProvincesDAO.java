@@ -102,7 +102,7 @@ public class VNProvincesDAO {
 		int pId = p.getpId();
 		String name = p.getName();
 		double confirmed = p.getConfirmed();
-		double deaths = p.getConfirmed();
+		double deaths = p.getDeaths();
 		double recovered = p.getRecovered();
 		double underTreatment = p.getUnderTreatment();
 		String date = p.getDate();
@@ -162,8 +162,8 @@ public class VNProvincesDAO {
 		VNProvincesDAO vnpDAO = new VNProvincesDAO();
 		
 		
-		VietNamProvinces p = new VietNamProvinces(4, "Bạc Liêu" , 24, 0, 3, 19, date);
-		vnpDAO.editProvince(p);
+//		VietNamProvinces p = new VietNamProvinces(4, "Bạc Liêu" , 24, 0, 3, 19, date);
+//		vnpDAO.editProvince(p);
 		
 	}
 	
