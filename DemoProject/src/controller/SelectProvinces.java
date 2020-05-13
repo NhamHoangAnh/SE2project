@@ -61,6 +61,9 @@ public class SelectProvinces extends HttpServlet {
         		System.out.println("Calling edit with id of: " + req.getParameter("editId"));
         		showEditForm(req, res);
         		editProvince(req,res);
+        	} else if (req.getParameter("insert") != null) {
+        		showInsertForm(req, res);
+        		insertProvince(req,res);
         	} else {
         		listProvinces(req,res);
         	}
@@ -89,13 +92,14 @@ public class SelectProvinces extends HttpServlet {
 		
 		int pId = Integer.parseInt(req.getParameter("editId"));
 		VietNamProvinces p = vnpDAO.getProvince(pId);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("provinceForm.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("provinceEditForm.jsp");
 		req.setAttribute("p", p);
         dispatcher.include(req, res);
 	}
 	
 	public void editProvince(HttpServletRequest req, HttpServletResponse res) 
 			throws SQLException, IOException {
+		
 		int pId = Integer.parseInt(req.getParameter("ePId"));
 		String name = req.getParameter("eName");
 		double confirmed = Double.parseDouble(req.getParameter("eConfirmed"));
@@ -105,6 +109,28 @@ public class SelectProvinces extends HttpServlet {
 		String date = req.getParameter("eDate");
 		VietNamProvinces changedP = new VietNamProvinces(pId, name,confirmed, deaths, recovered, underTreatment, date);
 		vnpDAO.editProvince(changedP);
+		res.sendRedirect("provinces");
+		return;
+	}
+	
+	public void showInsertForm(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException, SQLException {
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("provinceInsertForm.jsp");
+        dispatcher.include(req, res);
+	}
+	
+	public void insertProvince(HttpServletRequest req, HttpServletResponse res)
+			throws SQLException, IOException {
+		
+		String name = req.getParameter("iName");
+		double confirmed = Double.parseDouble(req.getParameter("iConfirmed"));
+		double deaths = Double.parseDouble(req.getParameter("iDeaths"));
+		double recovered = Double.parseDouble(req.getParameter("iRecovered"));
+		double underTreatment = Double.parseDouble(req.getParameter("iUnderTreatment"));
+		String date = req.getParameter("iDate");
+		VietNamProvinces newP = new VietNamProvinces(name, confirmed, deaths, recovered, underTreatment, date);
+		vnpDAO.insertProvince(newP);
 		res.sendRedirect("provinces");
 		return;
 	}
