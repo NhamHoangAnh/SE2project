@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,15 +21,20 @@ import helper.DT;
 public class VNProvincesDAO {
 	
 	private Connection conn;
+	private String globalDate;
 	final String url = "https://ncov.moh.gov.vn/";
 	
 	public VNProvincesDAO() {
 		conn = DBConnect.getConnection();
+		try {
+			globalDate = Fetch.fetchDate();
+		} catch (JSONException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void updateProvinces() throws SQLException, IOException {
-		
-		String globalDate = Fetch.fetchDate();
 		
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM VietnamProvinces");
 		ResultSet r = pstmt.executeQuery();
@@ -86,6 +92,31 @@ public class VNProvincesDAO {
 		}
 	}
 	
+	public void editProvince(VietNamProvinces p) throws SQLException {
+		String editProvince = "UPDATE VietNamProvinces SET "
+				+ "name = ?, "
+				+ "confirmed =?, deaths =?, "
+				+ "recovered = ?, underTreatment=?, "
+				+ "date=? WHERE pId = ? ";
+		PreparedStatement pstmt = conn.prepareStatement(editProvince);
+		int pId = p.getpId();
+		String name = p.getName();
+		double confirmed = p.getConfirmed();
+		double deaths = p.getConfirmed();
+		double recovered = p.getRecovered();
+		double underTreatment = p.getUnderTreatment();
+		String date = p.getDate();
+		pstmt.setString(1, name);
+		pstmt.setDouble(2, confirmed);
+		pstmt.setDouble(3, deaths);
+		pstmt.setDouble(4, recovered);
+		pstmt.setDouble(5, underTreatment);
+		pstmt.setString(6, date);
+		pstmt.setInt(7, pId);
+		pstmt.execute();
+		
+	}
+	
 	public void deleteProvince(int id) throws SQLException {
 		PreparedStatement pstmt = conn.prepareStatement("DELETE FROM VietnamProvinces WHERE pId = ?");
 		pstmt.setInt(1, id);
@@ -125,14 +156,14 @@ public class VNProvincesDAO {
 //			System.out.println(rs.getString("name"));
 //		}
 		
+		String date = Fetch.fetchDate();
+		
 		
 		VNProvincesDAO vnpDAO = new VNProvincesDAO();
 		
-		vnpDAO.updateProvinces();
 		
-		ArrayList<VietNamProvinces> testAll = new ArrayList<VietNamProvinces>();
-		testAll = vnpDAO.selectAllProvinces();
-		System.out.println(testAll.get(3));
+		VietNamProvinces p = new VietNamProvinces(4, "Bạc Liêu" , 24, 0, 3, 19, date);
+		vnpDAO.editProvince(p);
 		
 	}
 	
