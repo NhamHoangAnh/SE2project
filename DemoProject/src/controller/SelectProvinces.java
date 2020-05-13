@@ -37,24 +37,31 @@ public class SelectProvinces extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
-			throws IOException, ServletException {
-		
+			throws IOException, ServletException {	
 		res.setContentType("text/html");
         res.setCharacterEncoding("UTF-8");
         String action = req.getServletPath();
         
         String path = req.getRequestURI().substring(req.getContextPath().length());
-        System.out.println(path);
+        //System.out.println(path);
+        System.out.println(action);
         try {
-        	switch(path) {
-        	case "/delete": 
+//        	switch(action) {
+//        	case "/delete": 
+//        		deleteProvince(req,res);
+//        		break;
+//        	default:
+//        		listProvinces(req,res);
+//        		break;
+//        	}
+        	if (req.getParameter("delId") != null) {
+        		System.out.println("Calling delete with id of: " + req.getParameter("delId"));
         		deleteProvince(req,res);
-        		break;
-        	default:
+        	} else if(req.getParameter("editId") != null) {
+        		System.out.println("Calling edit with id of: " + req.getParameter("editId"));
+        	} else {
         		listProvinces(req,res);
-        		break;
         	}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,11 +85,11 @@ public class SelectProvinces extends HttpServlet {
 	public void deleteProvince(HttpServletRequest req, HttpServletResponse res) 
 			throws IOException, ServletException, SQLException {
         
-		System.out.println("Calling delete");
-		String getPId = req.getParameter("id");
+		//System.out.println("Calling delete");
+		String getPId = req.getParameter("delId");
         int pId = Integer.parseInt(getPId);
-        vnpDAO.deleteProvince(22);
-        System.out.println("Delete successful at id: 22" );
+        vnpDAO.deleteProvince(pId);
+        System.out.println("Delete successful at id: " + pId );
         res.sendRedirect("provinces");
         
 	}
