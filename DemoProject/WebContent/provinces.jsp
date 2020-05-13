@@ -36,7 +36,9 @@
 							<td><c:out value="${p.underTreatment}" /></td>
 							<td><c:out value="${p.date}" /></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/delete?id=<c:out value='${p.pId}' />">Delete</a>
+								<a href="${pageContext.request.contextPath}/provinces?delId=<c:out value='${p.pId}' />">Delete</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="${pageContext.request.contextPath}/provinces?editId=<c:out value='${p.pId}' />">Edit</a>
 							</td>
 							
 					</c:forEach>
