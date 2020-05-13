@@ -45,6 +45,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<h3><a href="${pageContext.request.contextPath}/provinces?insert=1">Add A New Province Statistics</a></h3>
 </body>
 </html>
 
