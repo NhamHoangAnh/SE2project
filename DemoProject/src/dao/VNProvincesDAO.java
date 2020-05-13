@@ -138,6 +138,30 @@ public class VNProvincesDAO {
 		
 	}
 	
+	public void insertProvince(VietNamProvinces p) throws SQLException {
+		String insertProvince = "INSERT INTO VietnamProvinces("
+				+ "name, confirmed, "
+				+ "deaths, recovered, "
+				+ "underTreatment, "
+				+ "date) "
+				+ "VALUES(?,?,?,?,?,?);";
+		PreparedStatement pstmt = conn.prepareStatement(insertProvince);
+		int pId = p.getpId();
+		String name = p.getName();
+		double confirmed = p.getConfirmed();
+		double deaths = p.getDeaths();
+		double recovered = p.getRecovered();
+		double underTreatment = p.getUnderTreatment();
+		String date = p.getDate();
+		pstmt.setString(1, name);
+		pstmt.setDouble(2, confirmed);
+		pstmt.setDouble(3, deaths);
+		pstmt.setDouble(4, recovered);
+		pstmt.setDouble(5, underTreatment);
+		pstmt.setString(6, date);
+		pstmt.execute();
+	}
+	
 	public void deleteProvince(int id) throws SQLException {
 		PreparedStatement pstmt = conn.prepareStatement("DELETE FROM VietnamProvinces WHERE pId = ?");
 		pstmt.setInt(1, id);
@@ -187,7 +211,8 @@ public class VNProvincesDAO {
 //		VietNamProvinces p = new VietNamProvinces(4, "Bạc Liêu" , 24, 0, 3, 19, date);
 //		vnpDAO.editProvince(p);
 		
-		
+		VietNamProvinces p = new VietNamProvinces("Hoàng Anh", 22, 0 ,22, 22, date);
+		vnpDAO.insertProvince(p);
 	}
 	
 }
