@@ -29,6 +29,17 @@ public class VietNamProvinces {
 	public VietNamProvinces() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public VietNamProvinces(String name, double confirmed, double deaths, double recovered, double underTreatment, String date) {
+		super() ;
+		this.name = name;
+		this.confirmed = confirmed;
+		this.deaths = deaths;
+		this.recovered = recovered;
+		this.underTreatment = underTreatment;
+		this.date = date;
+				
+	}
 
 	public String getName() {
 		return name;
