@@ -11,6 +11,9 @@
 </head>
 <body>
 	<h1>Hello SE2Project</h1>
+	
+	<h3><a href="${pageContext.request.contextPath}/AllCountries?insert=1">Add A New Country Statistics</a></h3>
+	
 	<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -23,6 +26,7 @@
 						<th>Total Recovered</th>
 						<th>Date</th>
 						<th>Country Code</th>
+						<th>Delete and Edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,8 +43,14 @@
 							<td><c:out value="${Country.totalRecovered}" /></td>
 							<td><c:out value="${Country.date}" /></td>
 							<td><c:out value="${Country.countryCode}" /></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/AllCountries?delId=<c:out value='${Country.cId}' />">Delete</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="${pageContext.request.contextPath}/AllCountries?editId=<c:out value='${Country.cId}' />">Edit</a>
+							</td>
 					</c:forEach>
 				</tbody>
 			</table>
+			
 </body>
 </html>
