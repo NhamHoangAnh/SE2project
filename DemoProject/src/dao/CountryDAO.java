@@ -190,15 +190,105 @@ public class CountryDAO {
 		}
 	}
 	
-//	public static void main(String arg[]) throws IOException, SQLException, JSONException {
-//		CountryDAO c = new CountryDAO();
-//		c.insertCountries();
+	public Country getCountryById(int id) throws SQLException {
 		
-//		c.updateCountries();
-//		JSONArray countries = Fetch.fetchCountries();
-//		JSONObject o = countries.getJSONObject(2);
-//		Iterator i = c.selectAllCountries().iterator();
-//		String cs = "AX";
-//		System.out.println(c.selectCountry(cs).getCountryCode());
-//	}
+		Country c = null;
+		
+		String getCountryById = "SELECT * FROM COUNTRIES WHERE cID =?";
+		PreparedStatement pstmt = conn.prepareStatement(getCountryById);
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			int cId = rs.getInt("cId");
+			String country = rs.getString("country");
+			double newConfirmed = rs.getDouble("newConfirmed");
+			double totalConfirmed = rs.getDouble("totalConfirmed");
+			double newDeaths = rs.getDouble("newDeaths");
+			double totalDeaths = rs.getDouble("totalDeaths");
+			double newRecovered = rs.getDouble("newRecovered");
+			double totalRecovered = rs.getDouble("totalRecovered");
+			String date = rs.getString("date");
+			String countryCode = rs.getString("countryCode");
+			c = new Country(cId, country, newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, date, countryCode);
+		}
+		
+		return c; 
+	}
+	
+	public void editCountry(Country c) throws SQLException {
+		
+		String editCountry = "UPDATE COUNTRIES SET "
+				+ "country =?, newConfirmed =?, "
+				+ "totalConfirmed =?, newDeaths =?, "
+				+ "totalDeaths =?, newRecovered =?, "
+				+ "totalRecovered =?, date =?,"
+				+ "countryCode =? WHERE cId =?";
+		PreparedStatement pstmt = conn.prepareStatement(editCountry);
+		int cId = c.getcId();
+		String country = c.getCountry();
+		double newConfirmed = c.getNewConfirmed();
+		double totalConfirmed = c.getTotalConfirmed();
+		double newDeaths = c.getNewDeaths();
+		double totalDeaths = c.getTotalDeaths();
+		double newRecovered = c.getNewRecovered();
+		double totalRecovered = c.getTotalRecovered();
+		String date = c.getDate();
+		String countryCode = c.getCountryCode();
+		pstmt.setString(1, country);
+		pstmt.setDouble(2, newConfirmed);
+		pstmt.setDouble(3, totalConfirmed);
+		pstmt.setDouble(4, newDeaths);
+		pstmt.setDouble(5, totalDeaths);
+		pstmt.setDouble(6, newRecovered);
+		pstmt.setDouble(7, totalRecovered);
+		pstmt.setString(8, date);
+		pstmt.setString(9, countryCode);
+		pstmt.setInt(10, cId);
+		pstmt.execute();
+		
+	}
+	
+	public void insertCountry(Country c) throws SQLException {
+		String insertCountry = "INSERT INTO COUNTRIES(country, newConfirmed, "
+				+ "totalConfirmed, newDeaths, "
+				+ "totalDeaths, newRecovered, "
+				+ "totalRecovered, date, "
+				+ "countryCode) VALUES(?,?,?,?,?,?,?,?,?);";
+		PreparedStatement pstmt = conn.prepareStatement(insertCountry);
+		String country = c.getCountry();
+		double newConfirmed = c.getNewConfirmed();
+		double totalConfirmed = c.getTotalConfirmed();
+		double newDeaths = c.getNewDeaths();
+		double totalDeaths = c.getTotalDeaths();
+		double newRecovered = c.getNewRecovered();
+		double totalRecovered = c.getTotalRecovered();
+		String date = c.getDate();
+		String countryCode = c.getCountryCode();
+		pstmt.setString(1, country);
+		pstmt.setDouble(2, newConfirmed);
+		pstmt.setDouble(3, totalConfirmed);
+		pstmt.setDouble(4, newDeaths);
+		pstmt.setDouble(5, totalDeaths);
+		pstmt.setDouble(6, newRecovered);
+		pstmt.setDouble(7, totalRecovered);
+		pstmt.setString(8, date);
+		pstmt.setString(9, countryCode);
+		pstmt.execute();
+		
+	}
+	
+	public void deleteCountry(int id) throws SQLException {
+		
+		String deleteCountry = "DELETE FROM COUNTRIES WHERE cId = ?";
+		PreparedStatement pstmt = conn.prepareStatement(deleteCountry);
+		pstmt.setInt(1, id);
+		pstmt.execute();
+		
+	}
+	
+	public static void main(String arg[]) throws IOException, SQLException, JSONException {
+		CountryDAO c = new CountryDAO();
+		Country testc = new Country("tuanh",20,20,20,20,20,20,"date","TA");
+		c.insertCountry(testc);
+	}
 }
