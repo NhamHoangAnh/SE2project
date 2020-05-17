@@ -26,6 +26,19 @@ public class Country {
 		this.countryCode = countryCode;
 
 	}
+	public Country(String country, double newConfirmed, double totalConfirmed, double newDeaths, double totalDeaths, double newRecovered, double totalRecovered, String date, String countryCode) {
+		super();
+		this.newConfirmed = newConfirmed;
+		this.totalConfirmed = totalConfirmed;
+		this.newDeaths = newDeaths;
+		this.totalDeaths = totalDeaths;
+		this.newRecovered = newRecovered;
+		this.totalRecovered = totalRecovered;
+		this.country = country;     
+		this.date = date;
+		this.countryCode = countryCode;
+
+	}
 	
 	public Country() {}
 
