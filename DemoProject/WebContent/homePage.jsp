@@ -20,7 +20,7 @@
 		<div>Total Recovered: ${world.totalRecovered}</div>
 		<div>New Recovered: ${world.newRecovered}</div>
 	</div>
-	<input type="submit" name="Submit" value="Click Me" />
+	<h3> <a href="${pageContext.request.contextPath}/AllCountries ">Go to Country Statistics</a> </h3>
 	<div>
 		<h3>VietNam Statistics</h3>
 		<div>Total Confirmed: ${vn.totalConfirmed}</div>
@@ -30,7 +30,7 @@
 		<div>Total Recovered: ${vn.totalRecovered}</div>
 		<div>New Recovered: ${vn.newRecovered}</div>
 	</div>
-	<input type="submit" name="Submit" value="Click Me" />
+	<h3> <a href="${pageContext.request.contextPath}/provinces ">Go to VietNam's provinces Statistics</a> </h3>
 	<div>Date: ${world.date}</div>
 </body>
 </html>
