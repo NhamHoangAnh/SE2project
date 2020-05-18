@@ -20,7 +20,7 @@ import model.World;
 import model.Country;
 
 @WebServlet("/homePage")
-public class SelectWorld extends HttpServlet {
+public class HomePage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private WorldDAO wD = new WorldDAO();
@@ -28,7 +28,7 @@ public class SelectWorld extends HttpServlet {
 	private World world = new World();
 	private Country c = new Country();
 	
-	public SelectWorld() {
+	public HomePage() {
 		super();
 	}
 	
@@ -73,6 +73,7 @@ public class SelectWorld extends HttpServlet {
 			throws JSONException, IOException, SQLException {
 		
 		c = cD.selectVietNam();
+		System.out.println(c.getCountry());
 		req.setAttribute("vn", c);	
 	}
 }
