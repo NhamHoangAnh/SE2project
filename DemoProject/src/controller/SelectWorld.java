@@ -15,14 +15,18 @@ import org.json.JSONException;
 
 import com.google.gson.Gson;
 import dao.WorldDAO;
+import dao.CountryDAO;
 import model.World;
+import model.Country;
 
-@WebServlet("/world")
+@WebServlet("/homePage")
 public class SelectWorld extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private WorldDAO wD = new WorldDAO();
+	private CountryDAO cD = new CountryDAO();
 	private World world = new World();
+	private Country c = new Country();
 	
 	public SelectWorld() {
 		super();
@@ -33,25 +37,42 @@ public class SelectWorld extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
         
         try {
-			world = wD.selectWorldStatistics();
+			getWorld(req, res);
+			getVietNam(req, res);
+			showHomePage(req,res);
 		} catch (JSONException | SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
-        // world as JSON
-        
-//        String worldJSON = this.gson.toJson(world);
-//        PrintWriter pw = res.getWriter();
-//        pw.print(world);
-//        pw.flush();
-        
-        req.setAttribute("world", world);
-        
-        RequestDispatcher dispatcher = req.getRequestDispatcher("world.jsp");
-        dispatcher.include(req, res);
+        	// world as JSON
         
 	}
 	
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
+		
+		doGet(req, res);
+	}
 	
+	public void showHomePage(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("homePage.jsp");
+        dispatcher.include(req, res);
+	}
+	
+	public void getWorld(HttpServletRequest req, HttpServletResponse res) 
+			throws JSONException, SQLException, IOException, ServletException {
+		
+		world = wD.selectWorldStatistics();
+		req.setAttribute("world", world);       
+	}
+	
+	public void getVietNam(HttpServletRequest req, HttpServletResponse res) 
+			throws JSONException, IOException, SQLException {
+		
+		c = cD.selectVietNam();
+		req.setAttribute("vn", c);	
+	}
 }
