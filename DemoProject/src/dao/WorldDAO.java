@@ -3,7 +3,6 @@ package dao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -20,13 +19,42 @@ import model.World;
 
 public class WorldDAO {
 	private Connection conn;
+	private JSONObject world;
+	private String globalDate;
 	public WorldDAO() {
 		conn = DBConnect.getConnection();
+		try {
+			world = Fetch.fetchWorldStatistics();
+			globalDate = Fetch.fetchDate();
+		} catch (JSONException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void insertWorldStatistics() throws JSONException, IOException, SQLException {
+		
+		PreparedStatement pstmt = conn.prepareStatement("INSERT INTO WORLD(newConfirmed,totalConfirmed,newDeaths,totalDeaths, newRecovered, totalRecovered, date) "
+				+ "Values(?,?,?,?,?,?,?)");
+		double newConfirmed = world.getDouble("NewConfirmed");
+		double totalConfirmed = world.getDouble("TotalConfirmed");
+		double newDeaths = world.getDouble("NewDeaths");
+		double totalDeaths = world.getDouble("TotalDeaths");
+		double newRecovered = world.getDouble("NewRecovered");
+		double totalRecovered = world.getDouble("TotalRecovered");
+		pstmt.setDouble(1, newConfirmed);
+		pstmt.setDouble(2, totalConfirmed);
+		pstmt.setDouble(3, newDeaths);
+		pstmt.setDouble(4, totalDeaths);
+		pstmt.setDouble(5, newRecovered);
+		pstmt.setDouble(6, totalRecovered);
+		pstmt.setString(7, globalDate);
+		pstmt.executeUpdate();
 	}
 	
 	public void updateWorldStatistics() throws JSONException, IOException, SQLException  {
-		JSONObject world = Fetch.fetchWorldStatistics();
-		String globalDate = Fetch.fetchDate();
+		
 		
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
 		ResultSet r = pstmt.executeQuery();
@@ -60,8 +88,6 @@ public class WorldDAO {
 	}
 	
 	public World selectWorldStatistics() throws SQLException, JSONException, IOException{
-		
-		String globalDate = Fetch.fetchDate();
 		World w = new World();
 		String selectWorld = "SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectWorld);
@@ -95,19 +121,9 @@ public class WorldDAO {
 	public static void main(String args[]) throws SQLException, IOException {
 		try {
 			
-			String globalDate = Fetch.fetchDate();
-			
-			//String globalDate = Fetch.fetchDate();
-			Connection connect = DBConnect.getConnection();
-			PreparedStatement ps = connect.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
-			//ps.setString(1, "2020-04-29T15:28:20Z");
-			
-			ResultSet r = ps.executeQuery();
-			r.next();
-			String dateBefore = dateFormat(r.getString("date"));
-			String currentDate = dateFormat(globalDate);
-			System.out.println(dateBefore);
-			System.out.println(currentDate);
+			WorldDAO wd = new WorldDAO();
+			wd.updateWorldStatistics();
+//			
 			
 		} catch (JSONException | SQLException e) {
 			// TODO Auto-generated catch block
