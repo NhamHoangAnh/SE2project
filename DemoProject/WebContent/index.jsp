@@ -8,15 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello SE2Project</h1>
-	<div>
-		<h3>World Statistics</h3>
-		<div>Total Confirmed: ${world.totalConfirmed}</div>
-		<div>New Confirmed: ${world.newConfirmed}</div>
-		<div>Total Deaths: ${world.totalDeaths}</div>
-		<div>New Deaths: ${world.newDeaths}</div>
-		<div>Total Recovered: ${world.totalRecovered}</div>
-		<div>New Recovered: ${world.newRecovered}</div>
-	</div>
+	<h1>Admin Login</h1>
+	<form method="GET" action = "">
+		<h2> UserName: </h2>
+		<input type = "text" name="userName" size="45" />
+		<h2> PassWord: </h2>
+		<input type = "text" name="password" size="45" />
+		<br>
+		<br>
+		<input type="submit" value="Login" />
+	</form>
+	<h3><a href="${pageContext.request.contextPath}/guestHomPage ">Login as Guest</a></h3>
 </body>
 </html>
