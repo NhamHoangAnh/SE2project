@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDAO;
-import controller.SelectAllCountries;
+import controller.CountriesController;
 
 @WebServlet("/index")
 public class UserController extends HttpServlet{
