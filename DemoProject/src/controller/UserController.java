@@ -60,7 +60,7 @@ public class UserController extends HttpServlet{
 		String password = req.getParameter("password");
 		boolean authen = uD.login(userName, password);
 		if (authen) {
-			res.sendRedirect("AllCountries");
+			res.sendRedirect("homePage");
 		} else {
 			System.out.println("NO");
 		}
