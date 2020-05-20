@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
 </head>
 <body>
 	<h1>Admin Login</h1>
@@ -18,6 +18,6 @@
 		<br>
 		<input type="submit" value="Login" />
 	</form>
-	<h3><a href="${pageContext.request.contextPath}/guestHomPage ">Login as Guest</a></h3>
+	<h3><a href="${pageContext.request.contextPath}/guestHomePage ">Login as Guest</a></h3>
 </body>
 </html>

@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Country Insert Form</title>
 </head>
 <body>
-	<h1>Hello SE2Project</h1>
+
 	<form method=GET action="Country">
 	Country Name:
 	<input type = "text" name = "countryName">
