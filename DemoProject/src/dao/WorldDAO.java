@@ -19,22 +19,15 @@ import model.World;
 
 public class WorldDAO {
 	private Connection conn;
-	private JSONObject world;
-	private String globalDate;
 	public WorldDAO() {
 		conn = DBConnect.getConnection();
-		try {
-			world = Fetch.fetchWorldStatistics();
-			globalDate = Fetch.fetchDate();
-		} catch (JSONException | IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
 	public void insertWorldStatistics() throws JSONException, IOException, SQLException {
 		
+		JSONObject world = Fetch.fetchWorldStatistics();
+		String globalDate = Fetch.fetchDate();
 		PreparedStatement pstmt = conn.prepareStatement("INSERT INTO WORLD(newConfirmed,totalConfirmed,newDeaths,totalDeaths, newRecovered, totalRecovered, date) "
 				+ "Values(?,?,?,?,?,?,?)");
 		double newConfirmed = world.getDouble("NewConfirmed");
@@ -55,7 +48,8 @@ public class WorldDAO {
 	
 	public void updateWorldStatistics() throws JSONException, IOException, SQLException  {
 		
-		
+		JSONObject world = Fetch.fetchWorldStatistics();
+		String globalDate = Fetch.fetchDate();
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
 		ResultSet r = pstmt.executeQuery();
 		r.next();
@@ -99,13 +93,14 @@ public class WorldDAO {
 			double totalDeaths = rs.getDouble("totalDeaths");
 			double newRecovered = rs.getDouble("newRecovered");
 			double totalRecovered = rs.getDouble("totalRecovered");
+			String date = rs.getString("date");
 			w.setNewConfirmed(newConfirmed);
 			w.setTotalConfirmed(totalConfirmed);
 			w.setNewDeaths(newDeaths);
 			w.setTotalDeaths(totalDeaths);
 			w.setNewRecovered(newRecovered);
 			w.setTotalRecovered(totalRecovered);
-			w.setDate(globalDate);
+			w.setDate(date);
 		}
 		return w;	
 	}
@@ -116,19 +111,5 @@ public class WorldDAO {
 		LocalDate date = LocalDate.parse(d, inputFormatter);
 		String formattedDate = outputFormatter.format(date);
 		return formattedDate;
-	}
-	
-	public static void main(String args[]) throws SQLException, IOException {
-		try {
-			
-			WorldDAO wd = new WorldDAO();
-			wd.updateWorldStatistics();
-//			
-			
-		} catch (JSONException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 }

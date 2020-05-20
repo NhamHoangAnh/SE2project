@@ -21,21 +21,15 @@ import helper.DT;
 public class VNProvincesDAO {
 	
 	private Connection conn;
-	private String globalDate;
 	final String url = "https://ncov.moh.gov.vn/";
 	
 	public VNProvincesDAO() {
 		conn = DBConnect.getConnection();
-		try {
-			globalDate = Fetch.fetchDate();
-		} catch (JSONException | IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void updateProvinces() throws SQLException, IOException {
 		
+		String globalDate = Fetch.fetchDate();
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM VietnamProvinces");
 		ResultSet r = pstmt.executeQuery();
 		if(!r.next()) {
@@ -189,30 +183,5 @@ public class VNProvincesDAO {
 		return allProvinces;
 	}
 	
-	
-	public static void main(String args[]) throws IOException, SQLException {
-		
-//		Connection conn = DBConnect.getConnection();
-//		
-//		String selectProvinces = "SELECT * FROM VietnamProvinces";
-//		PreparedStatement pstmt = conn.prepareStatement(selectProvinces);
-//		ResultSet rs = pstmt.executeQuery();
-//		while(rs.next()) {
-//			System.out.println(rs.getString("name"));
-//		}
-		
-		String date = Fetch.fetchDate();
-		
-		
-		
-		VNProvincesDAO vnpDAO = new VNProvincesDAO();
-		
-		
-//		VietNamProvinces p = new VietNamProvinces(4, "Bạc Liêu" , 24, 0, 3, 19, date);
-//		vnpDAO.editProvince(p);
-		
-		VietNamProvinces p = new VietNamProvinces("Hoàng Anh", 22, 0 ,22, 22, date);
-		vnpDAO.insertProvince(p);
-	}
 	
 }

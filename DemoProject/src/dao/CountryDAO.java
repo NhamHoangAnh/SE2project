@@ -288,7 +288,7 @@ public class CountryDAO {
 	
 	public static void main(String arg[]) throws IOException, SQLException, JSONException {
 		CountryDAO c = new CountryDAO();
-		Country testc = new Country("tuanh",20,20,20,20,20,20,"date","TA");
-		c.insertCountry(testc);
+		Country vn = c.selectVietNam();
+		System.out.println(vn.getCountry());
 	}
 }
