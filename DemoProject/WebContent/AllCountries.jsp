@@ -7,10 +7,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>All Countries</title>
 </head>
 <body>
-	<h1>Hello SE2Project</h1>
 	
 	<h3><a href="${pageContext.request.contextPath}/AllCountries?insert=1">Add A New Country Statistics</a></h3>
 	
