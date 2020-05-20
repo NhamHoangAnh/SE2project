@@ -20,7 +20,7 @@
 		<div>Total Recovered: ${world.totalRecovered}</div>
 		<div>New Recovered: ${world.newRecovered}</div>
 	</div>
-	<h3> <a href="${pageContext.request.contextPath}/guestAllCountriess ">Go to Country Statistics</a> </h3>
+	<h3> <a href="${pageContext.request.contextPath}/guestAllCountries ">Go to Country Statistics</a> </h3>
 	<div>
 		<h3>VietNam Statistics</h3>
 		<div>Total Confirmed: ${vn.totalConfirmed}</div>
