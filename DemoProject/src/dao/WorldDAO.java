@@ -3,9 +3,8 @@ package dao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -15,6 +14,7 @@ import org.json.JSONObject;
 import connect.DBConnect;
 import data.Fetch;
 import model.World;
+import helper.DateTransform;
 
 
 public class WorldDAO {
@@ -44,6 +44,7 @@ public class WorldDAO {
 		pstmt.setDouble(6, totalRecovered);
 		pstmt.setString(7, globalDate);
 		pstmt.executeUpdate();
+		
 	}
 	
 	public void updateWorldStatistics() throws JSONException, IOException, SQLException  {
@@ -53,8 +54,8 @@ public class WorldDAO {
 		PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1");
 		ResultSet r = pstmt.executeQuery();
 		r.next();
-		String dateBefore = dateFormat(r.getString("date"));
-		String currentDate = dateFormat(globalDate);
+		String dateBefore = DateTransform.dateFormat(r.getString("date"));
+		String currentDate = DateTransform.dateFormat(globalDate);
 				 
 		if (!dateBefore.equals(currentDate)) {
 			String updateWorld = " INSERT INTO World("
@@ -82,6 +83,27 @@ public class WorldDAO {
 	}
 	
 	public World selectWorldStatistics() throws SQLException, JSONException, IOException{
+		
+		String lastDate = null;
+		
+		String getLastDate = "Select date from World ORDER BY wId DESC LIMIT 1;";
+		PreparedStatement statement = conn.prepareStatement(getLastDate);
+		ResultSet result = statement.executeQuery();
+		if (result.next() == true) {
+			lastDate = DateTransform.dateFormat(result.getString("date"));
+		}
+		Date d = new Date();  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+		String currentDate= formatter.format(d);
+		if (!lastDate.equals(currentDate)) {
+			try {
+				updateWorldStatistics();
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		World w = new World();
 		String selectWorld = "SELECT * FROM WORLD ORDER BY wId DESC LIMIT 1";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectWorld);
@@ -103,13 +125,5 @@ public class WorldDAO {
 			w.setDate(date);
 		}
 		return w;	
-	}
-	
-	public static String dateFormat(String d) {
-		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
-		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy", Locale.ENGLISH);
-		LocalDate date = LocalDate.parse(d, inputFormatter);
-		String formattedDate = outputFormatter.format(date);
-		return formattedDate;
 	}
 }
