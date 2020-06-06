@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.jsoup.Jsoup;
@@ -14,8 +16,9 @@ import org.jsoup.nodes.Element;
 
 import connect.DBConnect;
 import data.Fetch;
-import helper.SSLHelper;
 import model.VietNamProvinces;
+import helper.SSLHelper;
+import helper.DateTransform;
 import helper.DT;
 
 public class VNProvincesDAO {
@@ -165,6 +168,27 @@ public class VNProvincesDAO {
 	
 	
 	public ArrayList<VietNamProvinces> selectAllProvinces() throws SQLException {
+		
+		String lastDate = null;
+		
+		String getLastDate = "Select date from VietnamProvinces ORDER BY pId DESC LIMIT 1;";
+		PreparedStatement statement = conn.prepareStatement(getLastDate);
+		ResultSet result = statement.executeQuery();
+		if (result.next() == true) {
+			lastDate = DateTransform.dateFormat(result.getString("date"));
+		}
+		Date d = new Date();  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+		String currentDate= formatter.format(d);
+		if (!lastDate.equals(currentDate)) {
+			try {
+				updateProvinces();
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
 		ArrayList<VietNamProvinces> allProvinces = new ArrayList<VietNamProvinces>();
 		String selectProvinces = "SELECT * FROM VietnamProvinces";
 		PreparedStatement pstmt = conn.prepareStatement(selectProvinces);
@@ -182,6 +206,4 @@ public class VNProvincesDAO {
 		}
 		return allProvinces;
 	}
-	
-	
 }
