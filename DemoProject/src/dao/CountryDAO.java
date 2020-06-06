@@ -81,7 +81,7 @@ public class CountryDAO {
 		Date d = new Date();  
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
 		String currentDate= formatter.format(d);
-		if (lastDate.equals(currentDate)) {
+		if (!lastDate.equals(currentDate)) {
 			try {
 				updateCountries();
 			} catch (SQLException | IOException e) {
@@ -144,7 +144,7 @@ public class CountryDAO {
 	
 	public Country selectVietNam() throws IOException, SQLException, JSONException{
 		Country vn = new Country();
-		String selectVietNam = "SELECT * FROM countries where country = " + "\"" + "VietNam" + "\"";
+		String selectVietNam = "SELECT * FROM countries where country = " + "\"" + "Viet Nam" + "\"";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectVietNam);
 		ResultSet rs = preparedStatement.executeQuery();
 		while(rs.next()) {

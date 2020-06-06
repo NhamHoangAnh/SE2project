@@ -44,7 +44,7 @@ public class CountriesController extends HttpServlet {
 			} else if(req.getParameter("editId") != null) {
 				showEditForm(req, res);
 				editCountry(req, res);
-			} else if (req.getParameter("insert") != null) {
+			} else if(req.getParameter("insert") != null) {
 				showInsertForm(req,res);
 				insertCountry(req,res);
 				
