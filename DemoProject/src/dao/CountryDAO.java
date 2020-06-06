@@ -3,7 +3,9 @@ package dao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -14,6 +16,7 @@ import org.json.JSONArray;
 import connect.DBConnect;
 import data.Fetch;
 import model.Country;
+import helper.DateTransform;
 
 public class CountryDAO {
 	private Connection conn;
@@ -65,6 +68,28 @@ public class CountryDAO {
 	}
 	
 	public ArrayList<Country> selectAllCountries() throws IOException, SQLException, JSONException{
+		//System.out.println(java.time.LocalDate.now()); 
+		
+		String lastDate = null;
+		
+		String getLastDate = "Select date from Countries";
+		PreparedStatement statement = conn.prepareStatement(getLastDate);
+		ResultSet result = statement.executeQuery();
+		if (result.next() == true) {
+			lastDate = DateTransform.dateFormat(result.getString("date"));
+		}
+		Date d = new Date();  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+		String currentDate= formatter.format(d);
+		if (lastDate.equals(currentDate)) {
+			try {
+				updateCountries();
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		ArrayList<Country> countriesList = new ArrayList<Country>();
 		String selectCoutries = "SELECT * FROM Countries";
 		PreparedStatement preparedStatement = conn.prepareStatement(selectCoutries);
@@ -284,11 +309,5 @@ public class CountryDAO {
 		pstmt.setInt(1, id);
 		pstmt.execute();
 		
-	}
-	
-	public static void main(String arg[]) throws IOException, SQLException, JSONException {
-		CountryDAO c = new CountryDAO();
-		Country vn = c.selectVietNam();
-		System.out.println(vn.getCountry());
 	}
 }

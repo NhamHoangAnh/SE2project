@@ -36,7 +36,6 @@
 						<th>Under Treatment</th>
 						<th>Date</th>
 						<th>Delete</th>
-						<th>Delete Part 2</th>
 					</tr>
 				</thead>
 				<tbody>

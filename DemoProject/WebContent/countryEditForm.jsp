@@ -21,9 +21,6 @@
 </head>
 <body>
 	<h1>COVID-19 Coronavirus Pandemic</h1>
-	<div style="font-size:13px; color:#999; margin-top:5px; text-align:center">
-		Date: ${world.date}
-	</div>
 	<div align="center">
     	<form action="" method="post">
         <table border="1" cellpadding="5">

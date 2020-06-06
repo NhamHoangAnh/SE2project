@@ -30,7 +30,9 @@
 		<a href="${pageContext.request.contextPath}/AllCountries?insert=1">
 			Add A New Country Statistics
 		</a>
+		
 	</h3>
+	
 	
 	<table class="table table-bordered">
 				<thead>
